@@ -1,4 +1,4 @@
-Github.com/obinexus/dseasm
+https://github.com/obinexus/dse-asm
 
 Directed semitic evolution for assembly modeling where protocol is modleonng 9n behaviour stare modle via state machien nfa to dfa result ion 
 For imlkeont when 
