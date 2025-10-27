@@ -1,0 +1,21 @@
+; DSE-ASM example: simple observe->derive->apply loop
+.const COHERENCE_TARGET = 9540    ; 95.4% represented as int *100
+.data
+ledger:  ; ledger base (symbolic)
+
+.text
+start:
+    MOV R0, COHERENCE_TARGET     ; target into R0
+    CONTRACT R1                  ; create contract, returns contract id in R1
+main_loop:
+    OBSERVE R2                   ; R2 = observation id / code
+    DERIVE R3, R2                ; R3 = derived policy id
+    APPLY R3                     ; apply policy R3
+    RECEIPT R4, "auto"           ; store receipt, receipt id -> R4
+    VALIDATE                     ; sets FLAG if coherence >= target
+    JZ ok                        ; jump if zone OK (FLAG set)
+    RESOLVE R1, R3               ; attempt auto-resolve using contract & policy
+    JMP main_loop
+ok:
+    PRINT "Coherence OK, sleeping"
+    HALT
